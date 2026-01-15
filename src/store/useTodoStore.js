@@ -1,10 +1,39 @@
 import { create } from 'zustand'
 
-// Create Zustand store for managing todos
-// This is our global state - no prop drilling needed!
-export const useTodoStore = create((set) => ({
-  // State: array of todos
+// Zustand store - keeps all todos in one place
+export const useTodoStore = create((set, get) => ({
+  // All todos go here
   todos: [],
 
-  // We'll add actions (functions) in TODO 2
+  // Add new todo to the list
+  addTodo: (text) => set((state) => ({
+    todos: [
+      {
+        id: Date.now(), // using timestamp as id
+        text: text,
+        completed: false
+      },
+      ...state.todos // newest first
+    ]
+  })),
+
+  // Toggle between completed and not completed
+  toggleTodo: (id) => set((state) => ({
+    todos: state.todos.map((todo) =>
+      todo.id === id
+        ? { ...todo, completed: !todo.completed }
+        : todo
+    )
+  })),
+
+  // Delete todo by id
+  removeTodo: (id) => set((state) => ({
+    todos: state.todos.filter((todo) => todo.id !== id)
+  })),
+
+  // Count how many todos are not done yet
+  getUncompletedCount: () => {
+    const state = get()
+    return state.todos.filter((todo) => !todo.completed).length
+  }
 }))
