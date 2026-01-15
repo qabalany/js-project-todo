@@ -1,5 +1,8 @@
 export const App = () => {
   return (
-    <h1>React Boilerplate</h1>
+    <main>
+      <h1>Todo App with Zustand</h1>
+      <p>Global state management - No prop drilling!</p>
+    </main>
   )
 }
