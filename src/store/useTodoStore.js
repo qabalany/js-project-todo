@@ -5,6 +5,12 @@ export const useTodoStore = create((set, get) => ({
   // All todos go here
   todos: [],
 
+  // Theme state (dark by default)
+  isDarkMode: true,
+
+  // Toggle theme
+  toggleTheme: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
+
   // Add new todo to the list
   addTodo: (text) => set((state) => ({
     todos: [
