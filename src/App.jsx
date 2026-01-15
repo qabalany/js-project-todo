@@ -1,8 +1,14 @@
+import { TodoForm } from './components/TodoForm'
+import { TodoList } from './components/TodoList'
+import { TodoStats } from './components/TodoStats'
+
 export const App = () => {
   return (
     <main>
       <h1>Todo App with Zustand</h1>
-      <p>Global state management - No prop drilling!</p>
+      <TodoStats />
+      <TodoForm />
+      <TodoList />
     </main>
   )
 }
