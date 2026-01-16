@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { useTodoStore } from '../store/useTodoStore'
+import { useTodoStore, CATEGORIES } from '../store/useTodoStore'
 
 const Form = styled.form`
   display: flex;
@@ -28,6 +28,36 @@ const Input = styled.input`
 
   &::placeholder {
     color: ${props => props.$isDark ? 'rgba(255, 255, 255, 0.6)' : 'rgba(44, 62, 80, 0.6)'};
+  }
+`
+
+const Select = styled.select`
+  padding: 16px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  font-size: 13px;
+  outline: none;
+  transition: all 0.3s;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  color: ${props => props.$isDark ? '#ffffff' : '#2c3e50'};
+  cursor: pointer;
+  min-width: 200px;
+  font-weight: 500;
+
+  &:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.2);
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+    outline-offset: 2px;
+  }
+
+  option {
+    background: ${props => props.$isDark ? '#2c3e50' : '#ffffff'};
+    color: ${props => props.$isDark ? '#ffffff' : '#2c3e50'};
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
   }
 `
 
@@ -64,14 +94,16 @@ const AddButton = styled.button`
 
 export const TodoForm = () => {
   const [input, setInput] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('not-urgent-not-important')
   const addTodo = useTodoStore((state) => state.addTodo)
   const isDarkMode = useTodoStore((state) => state.isDarkMode)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (input.trim()) {
-      addTodo(input.trim())
+      addTodo(input.trim(), selectedCategory)
       setInput('')
+      setSelectedCategory('not-urgent-not-important')
     }
   }
 
@@ -85,6 +117,18 @@ export const TodoForm = () => {
         $isDark={isDarkMode}
         aria-label="New task input"
       />
+      <Select
+        value={selectedCategory}
+        onChange={(e) => setSelectedCategory(e.target.value)}
+        $isDark={isDarkMode}
+        aria-label="Task category"
+      >
+        {CATEGORIES.map(cat => (
+          <option key={cat.id} value={cat.id}>
+            {cat.emoji} {cat.label} - {cat.description}
+          </option>
+        ))}
+      </Select>
       <AddButton 
         type="submit" 
         $isDark={isDarkMode}
