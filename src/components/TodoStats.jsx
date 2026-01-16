@@ -47,16 +47,16 @@ const Circle = styled.div`
   justify-content: center;
   font-size: 32px;
   font-weight: 300;
-  color: #ffffff;
+  color: ${props => props.$isDark ? '#ffffff' : '#2c3e50'};
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 `
 
 const Label = styled.div`
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.9);
+  color: ${props => props.$isDark ? 'rgba(255, 255, 255, 0.9)' : '#2c3e50'};
   font-weight: 400;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  text-shadow: ${props => props.$isDark ? '0 1px 3px rgba(0, 0, 0, 0.2)' : 'none'};
 `
 
 const CircularProgress = ({ percent, color }) => {

@@ -68,12 +68,12 @@ const Title = styled.h1`
   margin: 0 0 20px 0;
   font-size: 32px;
   font-weight: 300;
-  color: ${props => props.$isDark ? '#ffffff' : '#ffffff'};
+  color: ${props => props.$isDark ? '#ffffff' : '#2c3e50'};
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: ${props => props.$isDark ? '0 2px 10px rgba(0, 0, 0, 0.2)' : '0 1px 3px rgba(0, 0, 0, 0.1)'};
 `
 
 const ThemeToggle = styled.button`
@@ -95,6 +95,11 @@ const ThemeToggle = styled.button`
   &:hover {
     background: rgba(255, 255, 255, 0.25);
     transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 2px;
   }
 `
 
@@ -137,11 +142,14 @@ export const App = () => {
     <AppContainer $isDark={isDarkMode}>
       <Card $isDark={isDarkMode}>
         <Header $isDark={isDarkMode}>
-          <ThemeToggle onClick={toggleTheme}>
+          <ThemeToggle 
+            onClick={toggleTheme}
+            aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+          >
             {isDarkMode ? <SunIcon /> : <MoonIcon />}
           </ThemeToggle>
           <Title $isDark={isDarkMode}>
-            <ClipboardIcon /> Todo App
+            <ClipboardIcon /> Walk the Walk
           </Title>
           <TodoStats />
         </Header>

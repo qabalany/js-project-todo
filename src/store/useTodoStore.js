@@ -1,15 +1,25 @@
 import { create } from 'zustand'
 
+// Get initial theme from localStorage or default to dark
+const getInitialTheme = () => {
+  const savedTheme = localStorage.getItem('theme')
+  return savedTheme === 'light' ? false : true
+}
+
 // Zustand store - keeps all todos in one place
 export const useTodoStore = create((set, get) => ({
   // All todos go here
   todos: [],
 
-  // Theme state (dark by default)
-  isDarkMode: true,
+  // Theme state (get from localStorage or default to dark)
+  isDarkMode: getInitialTheme(),
 
-  // Toggle theme
-  toggleTheme: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
+  // Toggle theme and save to localStorage
+  toggleTheme: () => set((state) => {
+    const newMode = !state.isDarkMode
+    localStorage.setItem('theme', newMode ? 'dark' : 'light')
+    return { isDarkMode: newMode }
+  }),
 
   // Add new todo to the list
   addTodo: (text) => set((state) => ({

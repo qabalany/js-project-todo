@@ -18,15 +18,16 @@ const Input = styled.input`
   transition: all 0.3s;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
-  color: ${props => props.$isDark ? '#ffffff' : '#ffffff'};
+  color: ${props => props.$isDark ? '#ffffff' : '#2c3e50'};
 
   &:focus {
     border-color: rgba(255, 255, 255, 0.4);
     background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
   }
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: ${props => props.$isDark ? 'rgba(255, 255, 255, 0.6)' : 'rgba(44, 62, 80, 0.6)'};
   }
 `
 
@@ -54,6 +55,11 @@ const AddButton = styled.button`
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
+
+  &:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 2px;
+  }
 `
 
 export const TodoForm = () => {
@@ -77,8 +83,15 @@ export const TodoForm = () => {
         onChange={(e) => setInput(e.target.value)}
         placeholder="Add a new task..."
         $isDark={isDarkMode}
+        aria-label="New task input"
       />
-      <AddButton type="submit" $isDark={isDarkMode}>Add Todo</AddButton>
+      <AddButton 
+        type="submit" 
+        $isDark={isDarkMode}
+        aria-label="Add new task"
+      >
+        Add Todo
+      </AddButton>
     </Form>
   )
 }

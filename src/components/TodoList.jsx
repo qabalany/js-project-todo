@@ -9,7 +9,7 @@ const ListContainer = styled.div`
 const EmptyState = styled.div`
   text-align: center;
   padding: 60px 20px;
-  color: rgba(255, 255, 255, 0.6);
+  color: ${props => props.$isDark ? 'rgba(255, 255, 255, 0.6)' : 'rgba(44, 62, 80, 0.6)'};
 `
 
 const EmptyIcon = styled.div`
@@ -21,23 +21,23 @@ const EmptyIcon = styled.div`
 const EmptyTitle = styled.h3`
   margin: 0 0 8px 0;
   font-size: 20px;
-  color: rgba(255, 255, 255, 0.9);
+  color: ${props => props.$isDark ? 'rgba(255, 255, 255, 0.9)' : '#2c3e50'};
   font-weight: 300;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  text-shadow: ${props => props.$isDark ? '0 2px 5px rgba(0, 0, 0, 0.2)' : 'none'};
 `
 
 const EmptyText = styled.p`
   margin: 0;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  color: ${props => props.$isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(44, 62, 80, 0.7)'};
+  text-shadow: ${props => props.$isDark ? '0 1px 3px rgba(0, 0, 0, 0.2)' : 'none'};
 `
 
 const ClipboardCheckIcon = ({ isDark }) => (
-  <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke={isDark ? '#555' : '#ccc'} strokeWidth="1.5">
+  <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.3)" strokeWidth="1.5">
     <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
     <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
-    <polyline points="9 11 12 14 16 10" stroke="#81c784" strokeWidth="2"/>
+    <polyline points="9 11 12 14 16 10" stroke="rgba(100, 255, 180, 0.6)" strokeWidth="2"/>
   </svg>
 )
 

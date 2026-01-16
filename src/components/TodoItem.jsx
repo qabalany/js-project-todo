@@ -47,10 +47,10 @@ const Checkbox = styled.input`
 const Text = styled.span`
   flex: 1;
   font-size: 16px;
-  color: ${props => props.$isDark ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.95)'};
+  color: ${props => props.$isDark ? 'rgba(255, 255, 255, 0.9)' : '#2c3e50'};
   text-decoration: ${props => props.$completed ? 'line-through' : 'none'};
   opacity: ${props => props.$completed ? 0.6 : 1};
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: ${props => props.$isDark ? '0 1px 2px rgba(0, 0, 0, 0.1)' : 'none'};
 `
 
 const DeleteButton = styled.button`
@@ -70,6 +70,11 @@ const DeleteButton = styled.button`
   &:hover {
     background: rgba(255, 100, 100, 0.3);
     transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: 2px solid rgba(255, 100, 100, 0.6);
+    outline-offset: 2px;
   }
 `
 
@@ -94,11 +99,16 @@ export const TodoItem = ({ todo }) => {
         checked={todo.completed}
         onChange={() => toggleTodo(todo.id)}
         $isDark={isDarkMode}
+        aria-label={`Mark "${todo.text}" as ${todo.completed ? 'incomplete' : 'complete'}`}
       />
       <Text $completed={todo.completed} $isDark={isDarkMode}>
         {todo.text}
       </Text>
-      <DeleteButton onClick={() => removeTodo(todo.id)} $isDark={isDarkMode}>
+      <DeleteButton 
+        onClick={() => removeTodo(todo.id)} 
+        $isDark={isDarkMode}
+        aria-label={`Delete "${todo.text}"`}
+      >
         <TrashIcon />
       </DeleteButton>
     </ItemContainer>
